@@ -289,10 +289,6 @@ def update_readme(day_folders):
     return current_day
 
 
-# ============================================================
-# DYNAMIC X POST GENERATION
-# ============================================================
-
 def read_day_readme(day_data):
 
     folder = day_data["folder"]
@@ -324,42 +320,36 @@ def read_day_readme(day_data):
 
 def clean_markdown(text):
 
-    # Remove images
     text = re.sub(
         r"!\[.*?\]\(.*?\)",
         "",
         text
     )
 
-    # Convert markdown links to plain text
     text = re.sub(
         r"\[([^\]]+)\]\([^)]+\)",
         r"\1",
         text
     )
 
-    # Remove inline code formatting
     text = re.sub(
         r"`([^`]+)`",
         r"\1",
         text
     )
 
-    # Remove bold formatting
     text = re.sub(
         r"\*\*(.*?)\*\*",
         r"\1",
         text
     )
 
-    # Remove italic formatting
     text = re.sub(
         r"\*(.*?)\*",
         r"\1",
         text
     )
 
-    # Remove heading markers
     text = re.sub(
         r"^#+\s*",
         "",
@@ -529,7 +519,6 @@ def create_dynamic_post(
 
     post.append("")
 
-    # Learning summary
     if learned:
 
         learned_text = (
@@ -551,7 +540,6 @@ def create_dynamic_post(
 
         post.append("")
 
-    # Practical work
     if bullets:
 
         post.append(
@@ -566,7 +554,6 @@ def create_dynamic_post(
 
         post.append("")
 
-    # Tools
     if tools:
 
         tools_text = (
@@ -588,7 +575,6 @@ def create_dynamic_post(
 
         post.append("")
 
-    # Project
     if project:
 
         project_text = (
@@ -672,7 +658,6 @@ def generate_x_post(
         sections
     )
 
-    # X character limit
     if len(post) > 280:
 
         warning(
@@ -721,10 +706,6 @@ def generate_x_post(
 
     return post
 
-
-# ============================================================
-# GIT
-# ============================================================
 
 def run_git(command):
 
@@ -844,10 +825,6 @@ def git_commit_and_push(
         )
 
 
-# ============================================================
-# MAIN
-# ============================================================
-
 def main():
 
     print_header()
@@ -910,7 +887,6 @@ def main():
         day_folders
     )
 
-    # Generate X post
     if GENERATE_X_POST and completed:
 
         latest_day = completed[-1]
@@ -922,7 +898,6 @@ def main():
                 day_folders[latest_day]
             )
 
-    # Git
     if completed:
 
         latest_day = completed[-1]
@@ -931,7 +906,6 @@ def main():
             latest_day
         )
 
-    # Internet
     if internet_available():
 
         success(
